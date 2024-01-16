@@ -1,0 +1,7 @@
+scikit-image
+diffusers==0.16.1
+transformers==4.27.4
+pandas
+nltk
+accelerate
+
