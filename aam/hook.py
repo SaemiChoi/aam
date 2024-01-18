@@ -16,7 +16,7 @@ class ObjectHooker(Generic[ModuleType]):
         self.unhook()
 
     def hook(self):
-        self.__hook_impl()
+        self._hook_impl()
         return self
 
     def unhook(self):
