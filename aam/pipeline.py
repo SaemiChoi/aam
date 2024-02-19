@@ -646,31 +646,31 @@ class StableDiffusionPipeline(DiffusionPipeline, TextualInversionLoaderMixin, Lo
             for i in prompt[2]:
                 prompt_2 = prompt_2 + prompt_splited[i] + ' '
 
-                prompt_embeds_1 = self._encode_prompt(
-                    prompt_2,
-                    device,
-                    num_images_per_prompt,
-                    do_classifier_free_guidance,
-                    negative_prompt,
-                    prompt_embeds=prompt_embeds_1,
-                    negative_prompt_embeds=negative_prompt_embeds,
-                )
-                prompt_embeds_0 = self._encode_prompt(
-                    prompt[0],
-                    device,
-                    num_images_per_prompt,
-                    do_classifier_free_guidance,
-                    negative_prompt,
-                    prompt_embeds=prompt_embeds_0,
-                    negative_prompt_embeds=negative_prompt_embeds,
-                )
-                prompt_embeds = [prompt_embeds_0, prompt_embeds_1]
-                prompt_embeds_dtype = prompt_embeds_0.dtype
+            prompt_embeds_1 = self._encode_prompt(
+                prompt_2,
+                device,
+                num_images_per_prompt,
+                do_classifier_free_guidance,
+                negative_prompt,
+                prompt_embeds=prompt_embeds_1,
+                negative_prompt_embeds=negative_prompt_embeds,
+            )
+            prompt_embeds_0 = self._encode_prompt(
+                prompt[0],
+                device,
+                num_images_per_prompt,
+                do_classifier_free_guidance,
+                negative_prompt,
+                prompt_embeds=prompt_embeds_0,
+                negative_prompt_embeds=negative_prompt_embeds,
+            )
+            prompt_embeds = [prompt_embeds_0, prompt_embeds_1]
+            prompt_embeds_dtype = prompt_embeds_0.dtype
 
-                # mapper specifier
-                cross_attention_kwargs = {}
-                cross_attention_kwargs['modifier_idx'] = prompt[1] + 1
-                cross_attention_kwargs['phrase_idx'] = [i + 1 for i in range(len(prompt[2]))]
+            # mapper specifier
+            cross_attention_kwargs = {}
+            cross_attention_kwargs['modifier_idx'] = prompt[1] + 1
+            cross_attention_kwargs['phrase_idx'] = [i + 1 for i in range(len(prompt[2]))]
 
 
         else:
