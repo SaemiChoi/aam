@@ -88,7 +88,7 @@ class UNetCrossAttentionHooker(ObjectHooker[Attention]):
             attention_probs_1 = attn.get_attention_scores(query, key_1, attention_mask)
 
             # init mapper & alpha maps
-            mapper = torch.arrange(0, 77, 1).to('cuda')
+            mapper = torch.arange(0, 77, 1).to('cuda')
             alpha = torch.ones((1, 1, 77)).to('cuda')
             alpha_2 = torch.ones((1, 1, 77)).to('cuda')
 
