@@ -672,6 +672,7 @@ class StableDiffusionPipeline(DiffusionPipeline, TextualInversionLoaderMixin, Lo
                 cross_attention_kwargs['modifier_idx'] = prompt[1] + 1
                 cross_attention_kwargs['phrase_idx'] = [i + 1 for i in range(len(prompt[2]))]
 
+
         else:
             prompt_embeds = self._encode_prompt(
                 prompt,
@@ -695,7 +696,7 @@ class StableDiffusionPipeline(DiffusionPipeline, TextualInversionLoaderMixin, Lo
             num_channels_latents,
             height,
             width,
-            prompt_embeds.dtype,
+            prompt_embeds_dtype,
             device,
             generator,
             latents,
@@ -744,7 +745,7 @@ class StableDiffusionPipeline(DiffusionPipeline, TextualInversionLoaderMixin, Lo
 
             # 9. Run safety checker
             if nsfw_enabled:
-                image, has_nsfw_concept = self.run_safety_checker(image, device, prompt_embeds.dtype)
+                image, has_nsfw_concept = self.run_safety_checker(image, device, prompt_embeds_dtype)
 
             # 10. Convert to PIL
             image = self.numpy_to_pil(image)
@@ -754,7 +755,7 @@ class StableDiffusionPipeline(DiffusionPipeline, TextualInversionLoaderMixin, Lo
 
             # 9. Run safety checker
             if nsfw_enabled:
-                image, has_nsfw_concept = self.run_safety_checker(image, device, prompt_embeds.dtype)
+                image, has_nsfw_concept = self.run_safety_checker(image, device, prompt_embeds_dtype)
 
         # Offload last model to CPU
         if hasattr(self, "final_offload_hook") and self.final_offload_hook is not None:
